@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808986538905",
+    "project_id": "retoverse-78ff8",
+    "storage_bucket": "retoverse-78ff8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808986538905:android:44118fdd5f32017a1fd908",
+        "android_client_info": {
+          "package_name": "com.shindetech.retoverse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHc2_DwB6jSuHxO0OV7OuFqX67vCAMxZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

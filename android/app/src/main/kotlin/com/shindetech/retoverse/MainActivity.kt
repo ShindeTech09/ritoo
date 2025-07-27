@@ -1,0 +1,5 @@
+package com.shindetech.retoverse
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

@@ -6,10 +6,14 @@ import 'package:retoverse/core/utils/responsive_widget.dart';
 import 'package:retoverse/presentations/controllers/auth_controller.dart';
 import 'package:retoverse/presentations/routes/app_routes.dart';
 
+import '../../controllers/home_contoller.dart';
+import 'home_content.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final authController = Get.find<AuthController>();
+  final controller = Get.find<HomeController>();
 
   void _logout() async {
     Get.dialog(
@@ -23,11 +27,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: Obx(() {
           final name = authController.currentUser.value?.name ?? '';
-          return Text("Welcome, $name");
+          return Text(
+            'Hello, $name',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: colorScheme.onSurface,
+            ),
+          );
         }),
         actions: [
           IconButton(
@@ -37,40 +49,7 @@ class HomePage extends StatelessWidget {
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout),
         ],
       ),
-      body: ResponsiveWidget(
-        mobile: const _HomeContent(),
-        desktop: const _HomeContent(),
-      ),
-    );
-  }
-}
-
-class _HomeContent extends StatelessWidget {
-  const _HomeContent();
-
-  @override
-  Widget build(BuildContext context) {
-    final authController = Get.find<AuthController>();
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.shopping_bag, size: 72, color: Colors.deepPurple),
-          const SizedBox(height: 24),
-          Obx(() {
-            final email = authController.currentUser.value?.email ?? '';
-            return Text(
-              "Logged in as $email",
-              style: const TextStyle(fontSize: 18),
-            );
-          }),
-          const SizedBox(height: 12),
-          const Text(
-            "Start exploring the Ritoverse store!",
-            style: TextStyle(fontSize: 16, color: Colors.grey),
-          ),
-        ],
-      ),
+      body: ResponsiveWidget(mobile: HomeContent(), desktop: HomeContent()),
     );
   }
 }

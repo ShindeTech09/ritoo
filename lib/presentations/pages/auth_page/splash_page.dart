@@ -27,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
     final isLoggedIn = await authController.checkUserSession();
 
     if (isLoggedIn) {
-      Get.offAllNamed(AppRoutes.HOME);
+      Get.offAllNamed(AppRoutes.PRODUCT_LIST);
     } else {
       Get.offAllNamed(AppRoutes.LOGIN);
     }

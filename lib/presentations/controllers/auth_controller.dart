@@ -1,15 +1,16 @@
 import 'package:get/get.dart';
 import 'package:retoverse/domain/entities/user_entity.dart';
-import 'package:retoverse/domain/usecases/check_email_verified_usecase.dart';
-import 'package:retoverse/domain/usecases/check_session_usecase.dart';
-import 'package:retoverse/domain/usecases/edit_profile_usecase.dart';
-import 'package:retoverse/domain/usecases/get_profile_usecase.dart';
-import 'package:retoverse/domain/usecases/password_reset_usecase.dart';
-import 'package:retoverse/domain/usecases/sign_in_usecase.dart';
-import 'package:retoverse/domain/usecases/sign_out_usecase.dart';
-import 'package:retoverse/domain/usecases/sign_up_usecase.dart';
-import 'package:retoverse/domain/usecases/verify_email_usecase.dart';
+import 'package:retoverse/domain/usecases/auth_usecases/check_email_verified_usecase.dart';
 import 'package:retoverse/presentations/routes/app_routes.dart';
+
+import '../../domain/usecases/auth_usecases/check_session_usecase.dart';
+import '../../domain/usecases/auth_usecases/edit_profile_usecase.dart';
+import '../../domain/usecases/auth_usecases/get_profile_usecase.dart';
+import '../../domain/usecases/auth_usecases/password_reset_usecase.dart';
+import '../../domain/usecases/auth_usecases/sign_in_usecase.dart';
+import '../../domain/usecases/auth_usecases/sign_out_usecase.dart';
+import '../../domain/usecases/auth_usecases/sign_up_usecase.dart';
+import '../../domain/usecases/auth_usecases/verify_email_usecase.dart';
 
 class AuthController extends GetxController {
   late final SignInUseCase signInUseCase;

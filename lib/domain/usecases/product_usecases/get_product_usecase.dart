@@ -1,4 +1,5 @@
-import 'package:retoverse/domain/entities/product_entity.dart';
+import 'package:get/get.dart';
+import 'package:retoverse/data/models/product_model.dart';
 import 'package:retoverse/domain/repositories/product_repository.dart';
 
 class GetProductUseCase {
@@ -6,7 +7,7 @@ class GetProductUseCase {
 
   GetProductUseCase(this.repository);
 
-  Future<List<ProductEntity>> call() async {
+  Future<RxList<ProductModel>> call() async {
     return await repository.getAllProducts();
   }
 }

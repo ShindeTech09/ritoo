@@ -9,7 +9,7 @@ class ProductEntity {
   final List<String> colors;
   final int stock;
   final double rating;
-  final List<String> images;
+  final String images;
   final bool isFeatured;
   final DateTime createdAt;
 

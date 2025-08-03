@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:retoverse/domain/entities/product_entity.dart';
+import 'package:retoverse/data/models/product_model.dart';
 import 'package:retoverse/domain/usecases/product_usecases/get_product_usecase.dart';
 
 class ProductController extends GetxController {
@@ -7,7 +8,7 @@ class ProductController extends GetxController {
 
   ProductController({required this.getProductUseCase});
 
-  final RxList<ProductEntity> products = <ProductEntity>[].obs;
+  late RxList<ProductModel> products = <ProductModel>[].obs;
   final RxBool isLoading = false.obs;
 
   @override
@@ -19,8 +20,9 @@ class ProductController extends GetxController {
   Future<void> _loadProducts() async {
     isLoading.value = true;
     try {
-      final result = await getProductUseCase();
-      products.assignAll(result);
+      products = await getProductUseCase();
+      // products.addAll(result);
+      debugPrint(products[0].name);
     } catch (e) {
       // Handle error gracefully
       Get.snackbar('Error', 'Failed to load products due to ${e.toString()}');

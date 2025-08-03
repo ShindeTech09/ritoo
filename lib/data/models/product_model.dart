@@ -21,7 +21,7 @@ class ProductModel extends ProductEntity {
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['id'] ?? '',
-      name: map['name'] ?? '',
+      name: map['title'] ?? '',
       description: map['description'] ?? '',
       price: (map['price'] ?? 0).toDouble(),
       categoryId: map['categoryId'] ?? '',
@@ -30,7 +30,7 @@ class ProductModel extends ProductEntity {
       colors: List<String>.from(map['colors'] ?? []),
       stock: map['stock'] ?? 0,
       rating: (map['rating'] ?? 0).toDouble(),
-      images: List<String>.from(map['images'] ?? []),
+      images: map['images'] ?? '',
       isFeatured: map['isFeatured'] ?? false,
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
@@ -39,7 +39,7 @@ class ProductModel extends ProductEntity {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'title': name,
       'description': description,
       'price': price,
       'categoryId': categoryId,

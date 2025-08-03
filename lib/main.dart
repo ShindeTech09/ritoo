@@ -24,7 +24,7 @@ class RitoverseApp extends StatelessWidget {
     return GetMaterialApp(
       title: "R!!toverse App",
       initialBinding: AuthBindings(),
-      initialRoute: AppRoutes.PRODUCT_LIST,
+      initialRoute: AppRoutes.SPLASH,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );

@@ -13,18 +13,18 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   });
-  runApp(const RetoverseApp());
+  runApp(const RitoverseApp());
 }
 
-class RetoverseApp extends StatelessWidget {
-  const RetoverseApp({super.key});
+class RitoverseApp extends StatelessWidget {
+  const RitoverseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "R!!toverse App",
       initialBinding: AuthBindings(),
-      initialRoute: AppRoutes.SPLASH,
+      initialRoute: AppRoutes.PRODUCT_LIST,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );

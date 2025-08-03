@@ -7,4 +7,5 @@ class AppRoutes {
   static const EMAIL_VERIFICATION = "/email-verification";
   static const PROFILE = "/profile";
   static const EDITPROFILE = "/edit-profile";
+  static const PRODUCT_LIST = "/product-list";
 }

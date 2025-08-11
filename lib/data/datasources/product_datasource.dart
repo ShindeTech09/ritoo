@@ -1,21 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:retoverse/data/models/product_model.dart';
 
-// class ProductDataSource {
-//   final _firestore = FirebaseFirestore.instance.collection('products');
-//
-//   Future<List<ProductModel>> getAllProducts() async {
-//     final snapshot = await _firestore.get();
-//
-//     return snapshot.docs
-//         .map((doc) => ProductModel.fromMap(doc.data()))
-//         .toList();
-//   }
-// }
-
 class ProductDataSource {
-  final _firestore = FirebaseFirestore.instance.collection('products');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<ProductModel>> getAllProducts() async {
+    final snapshot = await _firestore.collection('products').get();
+
+    return snapshot.docs
+        .map((doc) => ProductModel.fromMap(doc.data()))
+        .toList();
+  }
+}
+
+/*
+class ProductDataSource {
+  final _firestore = FirebaseFirestore.instance.collection('premium-products');
 
   Future<RxList<ProductModel>> getAllProducts() async {
     try {
@@ -50,3 +50,4 @@ class ProductDataSource {
     }
   }
 }
+*/

@@ -11,7 +11,7 @@ class ProductEntity {
   final double rating;
   final String images;
   final bool isFeatured;
-  final DateTime createdAt;
+  final String createdAt;
 
   ProductEntity({
     required this.id,

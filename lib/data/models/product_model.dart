@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:retoverse/domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
@@ -32,7 +31,7 @@ class ProductModel extends ProductEntity {
       rating: (map['rating'] ?? 0).toDouble(),
       images: map['images'] ?? '',
       isFeatured: map['isFeatured'] ?? false,
-      createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      createdAt: map['createdAt'],
     );
   }
 

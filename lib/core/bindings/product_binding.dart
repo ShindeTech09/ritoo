@@ -22,6 +22,5 @@ class ProductBinding extends Bindings {
 
     // Controller
     Get.put<ProductController>(ProductController(), permanent: true);
-    ;
   }
 }

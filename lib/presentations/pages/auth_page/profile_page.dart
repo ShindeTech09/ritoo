@@ -204,11 +204,12 @@ class ProfilePage extends StatelessWidget {
                                 )
                                 .toList(),
                           );
-                        } else
+                        } else {
                           return Text(
                             'No addresses added.',
                             style: TextStyle(color: Colors.grey[600]),
                           );
+                        }
                       }),
                     ],
                   ),

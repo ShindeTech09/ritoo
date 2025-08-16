@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrl = (product.images is List && product.images.isNotEmpty)
         ? product.images
-        : (product.images is String ? product.images : '');
+        : product.images;
 
     // 🔹 Horizontal Card → slightly bigger
     if (isHorizontal) {

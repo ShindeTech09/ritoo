@@ -30,7 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final user = authController.currentUser.value;
     if (user != null) {
       nameController.text = user.name ?? '';
-      emailController.text = user.email ?? '';
+      emailController.text = user.email;
       mobileController.text = user.phone ?? '';
       dob = _parseDOB(user.dob);
       selectedGender = user.gender;

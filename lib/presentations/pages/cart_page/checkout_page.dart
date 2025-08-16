@@ -8,6 +8,8 @@ import '../../controllers/auth_controller.dart';
 class CheckoutPage extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
 
+  CheckoutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(

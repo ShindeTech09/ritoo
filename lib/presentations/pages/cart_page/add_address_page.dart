@@ -5,6 +5,8 @@ import '../../widgets/app_scaffold.dart';
 import '../../controllers/auth_controller.dart';
 
 class AddAddressPage extends StatefulWidget {
+  const AddAddressPage({super.key});
+
   @override
   State<AddAddressPage> createState() => _AddAddressPageState();
 }

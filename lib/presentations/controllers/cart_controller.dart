@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:retoverse/data/models/product_model.dart';
 import 'package:retoverse/domain/entities/cart_item_entity.dart';
 import 'package:retoverse/domain/repositories/cart_repository.dart';
-import 'package:retoverse/presentations/routes/app_routes.dart';
 
 class CartController extends GetxController {
   final CartRepository _cartRepository;

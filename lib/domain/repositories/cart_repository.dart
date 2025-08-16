@@ -1,4 +1,3 @@
-import 'package:retoverse/data/models/cart_item_model.dart';
 import 'package:retoverse/data/models/product_model.dart';
 import 'package:retoverse/domain/entities/cart_item_entity.dart';
 

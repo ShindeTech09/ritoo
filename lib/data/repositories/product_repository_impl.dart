@@ -24,9 +24,9 @@ class ProductRepositoryImpl extends ProductRepository {
     productDataSource.resetPagination();
   }
 
-  @override
-  Future<List<ProductModel>> getAllProducts() {
-    // TODO: implement getAllProducts
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<List<ProductModel>> getAllProducts() {
+  //   // TODO: implement getAllProducts
+  //   throw UnimplementedError();
+  // }
 }

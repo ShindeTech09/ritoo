@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:retoverse/core/utils/cart_tile.dart';
-import 'package:retoverse/domain/entities/cart_item_entity.dart';
 import 'package:retoverse/presentations/pages/cart_page/checkout_page.dart';
 import '../../controllers/cart_controller.dart';
 import '../../widgets/app_scaffold.dart';
@@ -43,7 +42,7 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\₹${controller.totalPrice.toStringAsFixed(2)}',
+                    '₹${controller.totalPrice.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Colors.green[700],
                       fontWeight: FontWeight.bold,

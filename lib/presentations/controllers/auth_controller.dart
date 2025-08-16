@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
+import 'package:retoverse/data/datasources/firebase_auth_datasource.dart';
 import 'package:retoverse/domain/entities/user_entity.dart';
+import 'package:retoverse/domain/repositories/cart_repository.dart';
 import 'package:retoverse/domain/usecases/auth_usecases/check_email_verified_usecase.dart';
+import 'package:retoverse/presentations/controllers/cart_controller.dart';
+import 'package:retoverse/presentations/pages/cart_page/address.dart';
 import 'package:retoverse/presentations/routes/app_routes.dart';
 
 import '../../domain/usecases/auth_usecases/check_session_usecase.dart';
@@ -23,6 +27,8 @@ class AuthController extends GetxController {
   late final EditProfileUseCase editProfileUseCase;
   late final CheckSessionUseCase checkSessionUseCase;
   final Rxn<UserEntity> currentUser = Rxn<UserEntity>();
+  final FirebaseAuthDataSource _authDataSource = FirebaseAuthDataSource();
+  final RxList<Address> addresses = <Address>[].obs;
 
   AuthController({
     required this.signInUseCase,
@@ -65,6 +71,22 @@ class AuthController extends GetxController {
         );
         return;
       }
+      // Store userId locally for cart binding or other features
+      final userId = user.uid;
+      Get.put<String>(userId, tag: 'userId');
+      await loadAddressesFromBackend();
+
+      // Register CartController with isAuthenticated: true
+      final cartRepository = Get.find<CartRepository>();
+      if (Get.isRegistered<CartController>()) {
+        Get.delete<CartController>();
+      }
+      Get.put(
+        CartController(cartRepository: cartRepository, isAuthenticated: true),
+      );
+
+      // Proceed with navigation or other logic
+      // e.g., Get.offAllNamed(AppRoutes.HOME);
       Get.snackbar('Success', 'Logged in');
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -79,6 +101,13 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar('Error ', 'Logout failed due to ${e.toString()}');
     }
+    if (Get.isRegistered<CartController>()) {
+      Get.delete<CartController>();
+    }
+    final cartRepository = Get.find<CartRepository>();
+    Get.put(
+      CartController(cartRepository: cartRepository, isAuthenticated: false),
+    );
   }
 
   Future<void> sendPasswordResetEmail(String email) async {
@@ -129,6 +158,49 @@ class AuthController extends GetxController {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  void loadAddresses(List<Address> list) {
+    addresses.assignAll(list);
+  }
+
+  void addAddress(Address address) {
+    addresses.add(address);
+    // Save to backend (Firebase)
+    saveAddressesToBackend();
+  }
+
+  void selectDefaultAddress(Address address) {
+    for (var addr in addresses) {
+      addr.isDefault = false;
+    }
+    address.isDefault = true;
+    addresses.refresh();
+    saveAddressesToBackend();
+  }
+
+  void saveAddressesToBackend() async {
+    final user = currentUser.value;
+    if (user == null) return;
+    try {
+      // Convert addresses to List<Map<String, dynamic>>
+      final addressList = addresses.map((a) => a.toMap()).toList();
+      await _authDataSource.updateUserAddresses(user.uid, addressList);
+      Get.snackbar('Success', 'Addresses updated successfully.');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to update addresses: ${e.toString()}');
+    }
+  }
+
+  Future<void> loadAddressesFromBackend() async {
+    final user = currentUser.value;
+    if (user == null) return;
+    try {
+      final fetched = await _authDataSource.fetchUserAddresses(user.uid);
+      addresses.assignAll(fetched);
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to load addresses: ${e.toString()}');
     }
   }
 }

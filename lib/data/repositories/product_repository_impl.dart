@@ -8,7 +8,25 @@ class ProductRepositoryImpl extends ProductRepository {
   ProductRepositoryImpl(this.productDataSource);
 
   @override
-  Future<List<ProductModel>> getAllProducts() async {
-    return await productDataSource.getAllProducts();
+  Future<List<ProductModel>> getProducts({
+    required int limit,
+    bool reset = false,
+  }) async {
+    // If reset is true, reset pagination before fetching products
+    if (reset) {
+      productDataSource.resetPagination();
+    }
+    return await productDataSource.getProducts(limit: limit);
+  }
+
+  @override
+  void resetPagination() {
+    productDataSource.resetPagination();
+  }
+
+  @override
+  Future<List<ProductModel>> getAllProducts() {
+    // TODO: implement getAllProducts
+    throw UnimplementedError();
   }
 }

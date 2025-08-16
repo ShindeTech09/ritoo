@@ -6,7 +6,10 @@ class GetProductUseCase {
 
   GetProductUseCase(this.repository);
 
-  Future<List<ProductModel>> call() async {
-    return await repository.getAllProducts();
+  Future<List<ProductModel>> call({
+    required int limit,
+    bool reset = false,
+  }) async {
+    return await repository.getProducts(limit: limit, reset: reset);
   }
 }

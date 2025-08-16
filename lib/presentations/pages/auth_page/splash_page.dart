@@ -11,26 +11,25 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final AuthController authController = Get.find<AuthController>();
+  late AuthController authController;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _initSession();
+    // Resolve controller inside initState (after GetMaterialApp + initialBinding are active)
+    authController = Get.find<AuthController>();
+
+    // Kick off session check after a microtask to ensure bindings completed
+    Future.microtask(() async {
+      final isLoggedIn = await authController.checkUserSession();
+      if (mounted) {
+        if (isLoggedIn) {
+          Get.offAllNamed(AppRoutes.HOME);
+        } else {
+          Get.offAllNamed(AppRoutes.LOGIN);
+        }
+      }
     });
-  }
-
-  Future<void> _initSession() async {
-    await Future.delayed(const Duration(seconds: 1)); // splash delay
-
-    final isLoggedIn = await authController.checkUserSession();
-
-    if (isLoggedIn) {
-      Get.offAllNamed(AppRoutes.PRODUCT_LIST);
-    } else {
-      Get.offAllNamed(AppRoutes.LOGIN);
-    }
   }
 
   @override

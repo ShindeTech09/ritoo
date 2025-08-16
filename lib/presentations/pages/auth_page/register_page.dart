@@ -120,7 +120,7 @@ class RegisterPage extends StatelessWidget {
 
                 // Login Redirect
                 TextButton(
-                  onPressed: () => Get.toNamed(AppRoutes.LOGIN),
+                  onPressed: () => Get.offAllNamed(AppRoutes.LOGIN),
                   child: const Text("Already have an account? Login"),
                 ),
               ],

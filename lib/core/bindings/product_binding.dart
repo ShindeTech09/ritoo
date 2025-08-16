@@ -21,8 +21,7 @@ class ProductBinding extends Bindings {
     );
 
     // Controller
-    Get.lazyPut<ProductController>(
-      () => ProductController(getProductUseCase: Get.find<GetProductUseCase>()),
-    );
+    Get.put<ProductController>(ProductController(), permanent: true);
+    ;
   }
 }

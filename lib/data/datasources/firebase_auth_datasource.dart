@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:retoverse/presentations/pages/cart_page/address.dart';
 
 class FirebaseAuthDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -69,6 +71,14 @@ class FirebaseAuthDataSource {
     await userDoc.update(data);
   }
 
+  Future<void> updateUserAddresses(
+    String uid,
+    List<Map<String, dynamic>> addresses,
+  ) async {
+    final userDoc = _firestore.collection('users').doc(uid);
+    await userDoc.update({'addresses': addresses});
+  }
+
   Future<void> sendPasswordResetEmail(String email) async {
     await _auth.sendPasswordResetEmail(email: email);
   }
@@ -84,5 +94,16 @@ class FirebaseAuthDataSource {
     final user = _auth.currentUser;
     await user?.reload();
     return user?.emailVerified ?? false;
+  }
+
+  Future<List<Address>> fetchUserAddresses(String userId) async {
+    final doc = await _firestore.collection('users').doc(userId).get();
+    final data = doc.data();
+    if (data == null || data['addresses'] == null) return [];
+    final List<dynamic> addressList = data['addresses'];
+    debugPrint(addressList.toString());
+    return addressList
+        .map((json) => Address.fromJson(Map<String, dynamic>.from(json)))
+        .toList();
   }
 }

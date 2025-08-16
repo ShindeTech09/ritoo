@@ -12,6 +12,7 @@ class ProductEntity {
   final String images;
   final bool isFeatured;
   final String createdAt;
+  final double discount;
 
   ProductEntity({
     required this.id,
@@ -27,5 +28,6 @@ class ProductEntity {
     required this.images,
     required this.isFeatured,
     required this.createdAt,
+    required this.discount,
   });
 }

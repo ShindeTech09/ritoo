@@ -3,13 +3,37 @@ import 'package:retoverse/data/models/product_model.dart';
 
 class ProductDataSource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  DocumentSnapshot<ProductModel>? _lastDocument;
 
-  Future<List<ProductModel>> getAllProducts() async {
-    final snapshot = await _firestore.collection('products').get();
+  Future<List<ProductModel>> getProducts({
+    required int limit,
+    bool reset = false,
+  }) async {
+    if (reset) _lastDocument = null;
 
-    return snapshot.docs
-        .map((doc) => ProductModel.fromMap(doc.data()))
-        .toList();
+    Query<ProductModel> query = _firestore
+        .collection('products')
+        .withConverter<ProductModel>(
+          fromFirestore: ProductModel.fromFirestore,
+          toFirestore: (product, _) => product.toFirestore(),
+        )
+        .limit(limit);
+
+    if (_lastDocument != null) {
+      query = query.startAfterDocument(_lastDocument!);
+    }
+
+    final querySnapshot = await query.get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      _lastDocument = querySnapshot.docs.last;
+    }
+
+    return querySnapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  void resetPagination() {
+    _lastDocument = null;
   }
 }
 
